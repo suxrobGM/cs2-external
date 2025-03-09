@@ -21,7 +21,6 @@ public abstract class EntityBase
     public string CurrentWeaponName { get; private set; } = null!;
 
     private short WeaponIndex { get; set; }
-
     public Vector3 Velocity { get; private set; }
 
 
@@ -56,7 +55,6 @@ public abstract class EntityBase
                                                       Offsets.m_iItemDefinitionIndex);
         CurrentWeaponName = Enum.GetName(typeof(WeaponIndexes), WeaponIndex)!;
         Velocity = gameProcess.Process.Read<Vector3>(AddressBase + Offsets.m_vecAbsVelocity);
-
         return true;
     }
 }

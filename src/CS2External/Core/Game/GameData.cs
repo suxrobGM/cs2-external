@@ -4,43 +4,50 @@ namespace CS2External.Core.Game;
 
 public class GameData : ThreadedServiceBase
 {
-    #region properties
+    private GameProcess _gameProcess;
+    
+    public GameData(GameProcess gameProcess)
+    {
+        _gameProcess = gameProcess;
+        Player = new Player();
+        Entities = Enumerable.Range(0, 64).Select(index => new Entity(index)).ToArray();
+    }
+
+    
+    #region Properties
 
     protected override string ThreadName => nameof(GameData);
-
-    private GameProcess GameProcess { get; set; }
 
     public Player Player { get; private set; }
 
     public Entity[] Entities { get; private set; }
 
     #endregion
-
-    #region methods
-
-    /// <inheritdoc />
-    public GameData(GameProcess gameProcess)
-    {
-        GameProcess = gameProcess;
-        Player = new Player();
-        Entities = Enumerable.Range(0, 64).Select(index => new Entity(index)).ToArray();
-    }
-
+    
+    #region Methods
+    
     public override void Dispose()
     {
         base.Dispose();
 
-        Entities = null;
-        Player = null;
-        GameProcess = null;
+        Entities = null!;
+        Player = null!;
+        _gameProcess = null!;
     }
 
     protected override void FrameAction()
     {
-        if (!GameProcess.IsValid) return;
-        Player.Update(GameProcess);
+        if (!_gameProcess.IsValid)
+        {
+            return;
+        }
+        
+        Player.Update(_gameProcess);
 
-        foreach (var entity in Entities) entity.Update(GameProcess);
+        foreach (var entity in Entities)
+        {
+            entity.Update(_gameProcess);
+        }
     }
 
     #endregion

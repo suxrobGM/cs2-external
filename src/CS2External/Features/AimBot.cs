@@ -27,13 +27,9 @@ public class AimBot : ThreadedServiceBase
         MouseHook = new GlobalHook(HookType.WH_MOUSE_LL, MouseHookCallback);
     }
 
-    private static MouseMoveMethod MouseMoveMethod =>
-        MouseMoveMethod.TryMouseMoveNew;
-
+    private static MouseMoveMethod MouseMoveMethod => MouseMoveMethod.TryMouseMoveNew;
     private static string AimBonePos => "head";
-
     private bool IsCalibrated { get; set; }
-
     protected override string ThreadName => nameof(AimBot);
 
     private GameProcess GameProcess { get; set; }
@@ -75,8 +71,13 @@ public class AimBot : ThreadedServiceBase
 
         if (mouseMessage != MouseMessages.WmLButtonDown) return true;
 
-        if (!GameProcess.IsValid || !GameData.Player.IsAlive() || TriggerBot.IsHotKeyDown() ||
-            GameData.Player.IsGrenade()) return true;
+        if (!GameProcess.IsValid || 
+            !GameData.Player.IsAlive() || 
+            TriggerBot.IsHotKeyDown() ||
+            GameData.Player.IsGrenade())
+        {
+            return true;
+        }
 
         if (Monitor.TryEnter(_stateLock))
         {
@@ -190,8 +191,6 @@ public class AimBot : ThreadedServiceBase
             Vector3.Cross(aimDirectionDesired, new Vector3(0, 0, 1)).GetNormalized());
 
         aimAngles = new Vector2(horizontalAngle, verticalAngle);
-
-
         angleSize = aimDirection.GetAngleTo(aimDirectionDesired);
     }
 

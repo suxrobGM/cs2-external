@@ -78,7 +78,9 @@ public class Player : EntityBase
     {
         return new HashSet<string>
         {
-            nameof(WeaponIndexes.Smokegrenade), nameof(WeaponIndexes.Flashbang), nameof(WeaponIndexes.Hegrenade),
+            nameof(WeaponIndexes.Smokegrenade), 
+            nameof(WeaponIndexes.Flashbang), 
+            nameof(WeaponIndexes.Hegrenade),
             nameof(WeaponIndexes.Molotov)
         }.Contains(CurrentWeaponName);
     }

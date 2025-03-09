@@ -24,8 +24,11 @@ public abstract class ThreadedServiceBase : IDisposable
     {
         _thread.Interrupt();
         _cts.Cancel();
-        if (!_thread.Join(ThreadTimeout)) 
+
+        if (!_thread.Join(ThreadTimeout))
+        {
             Log.Warning("Thread {ThreadName} did not exit gracefully within timeout", ThreadName);
+        }
     }
 
     public void Start()

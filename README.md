@@ -1,21 +1,23 @@
-## FullyExternalCS2
+# CS2External
 
-### Description
+## Description
 
-FullyExternalCS2 is an external cheat for Counter-Strike 2 **that does not write to the game memory**. \
-It was created for the _purpose_ of _improving_ Windows API skills. \
-[Please note that.](https://github.com/sweeperxz/FullyExternalCS2/issues/6#issuecomment-1919053959)
+CS2External it is a fork of [FullyExternalCS2](https://github.com/sweeperxz/FullyExternalCS2) with some improvements and new features.
+It is a an external cheat for Counter-Strike 2 that reads memory and interacts with the game process externally without injecting any code into the game process or modifying the game in any way.
 
-![SS](assets/photo.png)
+> [!IMPORTANT]
+> Note: This project is for educational and research purposes only. I am not responsible for any harm caused by this software.
 
-### Features
+![SS](docs/photo.png)
 
-#### AimBot
+## Features
+
+### AimBot
 
 - Key activation with RCS (default = LBUTTON)
 - Visibility check
 
-#### Esp
+### Esp
 
 - Skeleton (Color team)
 - Box with health bar
@@ -24,52 +26,53 @@ It was created for the _purpose_ of _improving_ Windows API skills. \
 - Enemy weapon
 - Enemy flags (Scoped, Flashed, Shifting, Shifting in scope)
 
-#### Other Visuals
+### Other Visuals
 
 - Aim Crosshair
 - [Bomb timer](https://streamable.com/ylouzc)
 
-#### Trigger Bot
+### Trigger Bot
 
 - Key activation (default = LAlt)
 - [No Spread](https://streamable.com/9ltv4n)
 
-#### Miscellaneous
+### Miscellaneous
 
-- [BunnyHop](https://streamable.com/3r09m1) ( [Read this](https://github.com/sweeperxz/FullyExternalCS2/blob/151355b47373acdc3ccaa6f526e94388c4e71f2b/Data/Entity/Player.cs#L64) )
-- OBS Bypass
+- [BunnyHop](https://streamable.com/3r09m1) ([Read this](src/CS2External/Core/Entities/Player.cs#L64))
+- OBS Bypass - Stream safely without detection
 
-#### System
+### System
 
 - Auto update offsets
+- Offsets will be downloaded from the [GitHub](https://github.com/a2x/cs2-dumper) repository
 
-### Getting started
+### Configuration
 
-**Dependencies**
+- Certain functionalites such as Aimbot, and Triggerbot can be toggled on and off in the [appsettings.json](./src/CS2External/appsettings.json) file.
 
-```cs
-    <ItemGroup>
-        <PackageReference Include="GameOverlay.Net" Version="4.3.1"/>
-        <PackageReference Include="Overlay.NET" Version="1.0.2"/>
-        <PackageReference Include="PresentationFramework" Version="4.6.0"/>
-        <PackageReference Include="SharpDX.Direct3D9" Version="4.2.0"/>
-        <PackageReference Include="SharpDX.DXGI" Version="4.2.0"/>
-    </ItemGroup>
-```
+## Installation & Usage
 
-**Installation**
+### Prerequisites
+
+- Download and install [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet)
+
+### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/sweeperxz/FullyExternalCS2.git
-cd FullyExternalCS2
+git clone https://github.com/suxrobGM/CS2External.git
+cd CS2External
 ```
 
-### Starting the program
+### Step 2: Build & Run
 
 ```bash
 dotnet build
 dotnet run
 ```
+
+### Alternative: Precompiled Binaries
+
+You can also download the precompiled binaries from the [Releases](https://github.com/sweepsuxrobgmerxz/CS2External/releases) page without downloading .NET SDK and building the project.
 
 ### Help
 
@@ -77,9 +80,5 @@ If you have issues or have questions, check out the Issues section of the GitHub
 
 ### Authors
 
-- sweeperxz - Developer/Engineer
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=sweeperxz/FullyExternalCS2&type=Date)](https://star-history.com/#sweeperxz/FullyExternalCS2&Date)
-
+- [sweeperxz](https://github.com/sweeperxz) - Developer/Engineer (original author of [FullyExternalCS2](https://github.com/sweeperxz/FullyExternalCS2))
+- [suxrobGM](https://github.com/suxrobGM) - Developer/Engineer (fork author)

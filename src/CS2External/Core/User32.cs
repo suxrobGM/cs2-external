@@ -6,8 +6,6 @@ using Point = CS2External.Core.Data.Point;
 
 namespace CS2External.Core;
 
-using Point = Data.Point;
-
 public static class User32
 {
     #region routines

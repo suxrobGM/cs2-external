@@ -1,4 +1,5 @@
 ﻿using CS2External.Utils;
+using Serilog;
 
 namespace CS2External.Core.Game;
 
@@ -7,9 +8,7 @@ public class GameProcess : ThreadedServiceBase
     #region constants
 
     private const string NameProcess = "cs2";
-
     private const string NameModule = "client.dll";
-
     private const string NameWindow = "Counter-Strike 2";
 
     #endregion
@@ -20,9 +19,9 @@ public class GameProcess : ThreadedServiceBase
 
     protected override TimeSpan ThreadFrameSleep { get; set; } = new(0, 0, 0, 0, 500);
 
-    public System.Diagnostics.Process Process { get; private set; }
+    public System.Diagnostics.Process? Process { get; private set; }
 
-    public Module ModuleClient { get; private set; }
+    public Module? ModuleClient { get; private set; }
 
     private IntPtr WindowHwnd { get; set; }
 
@@ -46,11 +45,18 @@ public class GameProcess : ThreadedServiceBase
 
     protected override async void FrameAction()
     {
-        if (!EnsureProcessAndModules()) InvalidateModules();
+        try
+        {
+            if (!EnsureProcessAndModules()) InvalidateModules();
 
-        if (!EnsureWindow()) InvalidateWindow();
+            if (!EnsureWindow()) InvalidateWindow();
 
-        await Task.Delay(ThreadFrameSleep);
+            await Task.Delay(ThreadFrameSleep);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Error in {ThreadName} thread", ThreadName);
+        }
     }
 
 

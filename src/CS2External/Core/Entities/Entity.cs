@@ -6,19 +6,13 @@ namespace CS2External.Data.Entity;
 
 public class Entity(int index) : EntityBase
 {
-    private int Index { get; } = index;
-
-    private bool Dormant { get; set; } = true;
-
+    private bool _dormant = true;
+    
     protected internal bool IsSpotted { get; private set; }
-
     protected internal string Name { get; private set; } = null!;
-
     protected internal int IsinScope { get; private set; }
-
     protected internal int FlashAlpha { get; private set; }
-
-
+    
     public Dictionary<string, Vector3> BonePos { get; } = new()
     {
         { "head", Vector3.Zero },
@@ -42,15 +36,15 @@ public class Entity(int index) : EntityBase
 
     public override bool IsAlive()
     {
-        return base.IsAlive() && !Dormant;
+        return base.IsAlive() && !_dormant;
     }
 
     protected override IntPtr ReadControllerBase(GameProcess gameProcess)
     {
-        var listEntryFirst = gameProcess.Process.Read<IntPtr>(EntityList + ((8 * (Index & 0x7FFF)) >> 9) + 16);
+        var listEntryFirst = gameProcess.Process.Read<IntPtr>(EntityList + ((8 * (index & 0x7FFF)) >> 9) + 16);
         return listEntryFirst == IntPtr.Zero
             ? IntPtr.Zero
-            : gameProcess.Process.Read<IntPtr>(listEntryFirst + 120 * (Index & 0x1FF));
+            : gameProcess.Process.Read<IntPtr>(listEntryFirst + 120 * (index & 0x1FF));
     }
 
     protected override IntPtr ReadAddressBase(GameProcess gameProcess)
@@ -66,7 +60,7 @@ public class Entity(int index) : EntityBase
     {
         if (!base.Update(gameProcess)) return false;
 
-        Dormant = gameProcess.Process.Read<bool>(AddressBase + Offsets.m_bDormant);
+        _dormant = gameProcess.Process.Read<bool>(AddressBase + Offsets.m_bDormant);
         IsSpotted = gameProcess.Process.Read<bool>(AddressBase + Offsets.m_entitySpottedState + 0x8);
         IsinScope = gameProcess.Process.Read<int>(AddressBase + Offsets.m_bIsScoped);
         FlashAlpha = gameProcess.Process.Read<int>(AddressBase + Offsets.m_flFlashDuration);
