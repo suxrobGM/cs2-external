@@ -1,10 +1,10 @@
 ﻿using System.Dynamic;
 using System.Net.Http;
 using System.Text.Json;
-using CS2Cheat.Core.Data;
+using CS2External.Core.Data;
 using Serilog;
 
-namespace CS2Cheat.Utils;
+namespace CS2External.Utils;
 
 public abstract class Offsets
 {

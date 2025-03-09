@@ -1,12 +1,12 @@
-using CS2Cheat.Core.Game;
-using CS2Cheat.Features;
-using CS2Cheat.Graphics;
-using CS2Cheat.Utils;
+using CS2External.Core.Game;
+using CS2External.Features;
+using CS2External.Graphics;
+using CS2External.Utils;
 using Serilog;
-using static CS2Cheat.Core.User32;
+using static CS2External.Core.User32;
 using Application = System.Windows.Application;
 
-namespace CS2Cheat;
+namespace CS2External;
 
 public class Program : Application, IDisposable
 {

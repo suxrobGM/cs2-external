@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace CS2Cheat.Core.Data;
+namespace CS2External.Core.Data;
 
 [StructLayout(LayoutKind.Sequential)]
 public struct Rect

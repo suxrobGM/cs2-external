@@ -1,10 +1,12 @@
 ﻿using System.Runtime.InteropServices;
-using CS2Cheat.Core.Data;
-using CS2Cheat.Utils;
+using CS2External.Core.Data;
+using CS2External.Utils;
 using Process.NET.Native;
-using Point = CS2Cheat.Core.Data.Point;
+using Point = CS2External.Core.Data.Point;
 
-namespace CS2Cheat.Core;
+namespace CS2External.Core;
+
+using Point = Data.Point;
 
 public static class User32
 {

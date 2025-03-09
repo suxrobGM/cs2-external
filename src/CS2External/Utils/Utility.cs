@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using CS2Cheat.Core;
-using CS2Cheat.Core.Data;
+using CS2External.Core;
+using CS2External.Core.Data;
 using Process.NET.Native.Types;
 using SharpDX;
 using static System.Diagnostics.Process;
@@ -10,7 +10,7 @@ using Keys = Process.NET.Native.Types.Keys;
 using Rectangle = System.Drawing.Rectangle;
 
 
-namespace CS2Cheat.Utils;
+namespace CS2External.Utils;
 
 public static class Utility
 {

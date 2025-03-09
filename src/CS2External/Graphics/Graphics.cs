@@ -1,8 +1,8 @@
 ﻿using System.Windows.Threading;
-using CS2Cheat.Core;
-using CS2Cheat.Core.Data;
-using CS2Cheat.Core.Game;
-using CS2Cheat.Features;
+using CS2External.Core;
+using CS2External.Core.Data;
+using CS2External.Core.Game;
+using CS2External.Features;
 using SharpDX;
 using SharpDX.Direct3D9;
 using static System.Windows.Application;
@@ -10,7 +10,7 @@ using Color = SharpDX.Color;
 using Font = SharpDX.Direct3D9.Font;
 using FontWeight = SharpDX.Direct3D9.FontWeight;
 
-namespace CS2Cheat.Graphics;
+namespace CS2External.Graphics;
 
 public class Graphics : ThreadedServiceBase
 {

@@ -1,8 +1,8 @@
 using Process.NET.Native;
 using Process.NET.Native.Types;
-using User32 = CS2Cheat.Core.User32;
+using User32 = CS2External.Core.User32;
 
-namespace CS2Cheat.Utils;
+namespace CS2External.Utils;
 
 public class GlobalHook :
     IDisposable
@@ -46,7 +46,7 @@ public class GlobalHook :
         using var curModule = currentProcess.MainModule;
         if (curModule is null) throw new ArgumentNullException(nameof(curModule));
 
-        var hHook = User32.SetWindowsHookEx((int)hookType, hookProc,
+        var hHook = Core.User32.SetWindowsHookEx((int)hookType, hookProc,
             Kernel32.GetModuleHandle(curModule.ModuleName), 0);
         if (hHook == IntPtr.Zero) throw new ArgumentException("Hook failed.");
 
@@ -55,6 +55,6 @@ public class GlobalHook :
 
     private static void UnHook(IntPtr hHook)
     {
-        if (!User32.UnhookWindowsHookEx(hHook)) throw new ArgumentException("UnHook failed.");
+        if (!Core.User32.UnhookWindowsHookEx(hHook)) throw new ArgumentException("UnHook failed.");
     }
 }

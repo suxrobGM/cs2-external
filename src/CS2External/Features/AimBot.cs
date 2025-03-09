@@ -1,14 +1,14 @@
-using CS2Cheat.Core;
-using CS2Cheat.Core.Data;
-using CS2Cheat.Core.Game;
-using CS2Cheat.Data.Entity;
-using CS2Cheat.Graphics;
-using CS2Cheat.Utils;
+using CS2External.Graphics;
+using CS2External.Core;
+using CS2External.Core.Data;
+using CS2External.Core.Game;
+using CS2External.Data.Entity;
+using CS2External.Utils;
 using Process.NET.Native.Types;
 using SharpDX;
 using Point = System.Drawing.Point;
 
-namespace CS2Cheat.Features;
+namespace CS2External.Features;
 
 public class AimBot : ThreadedServiceBase
 {

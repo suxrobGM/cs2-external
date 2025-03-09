@@ -1,8 +1,8 @@
-using CS2Cheat.Core;
-using CS2Cheat.Utils;
+using CS2External.Core;
+using CS2External.Utils;
 using Color = SharpDX.Color;
 
-namespace CS2Cheat.Features;
+namespace CS2External.Features;
 
 internal class BombTimer(Graphics.Graphics graphics) : ThreadedServiceBase
 {

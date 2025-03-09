@@ -2,7 +2,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace CS2Cheat.Core.Data;
+namespace CS2External.Core.Data;
 
 public class ClientDllDto
 {

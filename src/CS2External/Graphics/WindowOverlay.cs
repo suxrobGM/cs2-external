@@ -1,14 +1,14 @@
 ﻿using System.Windows.Threading;
-using CS2Cheat.Core;
-using CS2Cheat.Core.Game;
-using CS2Cheat.Utils;
+using CS2External.Core;
+using CS2External.Core.Game;
+using CS2External.Utils;
 using GameOverlay.Windows;
 using SharpDX;
 using static System.Windows.Application;
 using Color = SharpDX.Color;
 using Rectangle = System.Drawing.Rectangle;
 
-namespace CS2Cheat.Graphics;
+namespace CS2External.Graphics;
 
 public class WindowOverlay : ThreadedServiceBase
 {

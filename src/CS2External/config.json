@@ -1,2 +1,10 @@
 ﻿{
+  "Features": {
+    "AimBot": true,
+    "BombTimer": true,
+    "EspAimCrosshair": true,
+    "EspBox": true,
+    "SkeletonEsp": true,
+    "TriggerBot": true
+  }
 }

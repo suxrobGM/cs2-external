@@ -1,8 +1,8 @@
-using CS2Cheat.Core.Data;
-using CS2Cheat.Data.Entity;
+using CS2External.Core.Data;
+using CS2External.Data.Entity;
 using Color = SharpDX.Color;
 
-namespace CS2Cheat.Features;
+namespace CS2External.Features;
 
 public static class SkeletonEsp
 {

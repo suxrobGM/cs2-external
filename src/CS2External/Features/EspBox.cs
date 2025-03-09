@@ -1,11 +1,11 @@
-﻿using CS2Cheat.Core.Data;
-using CS2Cheat.Data.Entity;
-using CS2Cheat.Graphics;
+﻿using CS2External.Graphics;
+using CS2External.Core.Data;
+using CS2External.Data.Entity;
 using SharpDX;
 using SharpDX.Direct3D9;
 using Color = SharpDX.Color;
 
-namespace CS2Cheat.Features;
+namespace CS2External.Features;
 
 public static class EspBox
 {

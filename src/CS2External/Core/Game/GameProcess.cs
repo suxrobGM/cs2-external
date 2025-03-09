@@ -1,6 +1,6 @@
-﻿using CS2Cheat.Utils;
+﻿using CS2External.Utils;
 
-namespace CS2Cheat.Core.Game;
+namespace CS2External.Core.Game;
 
 public class GameProcess : ThreadedServiceBase
 {

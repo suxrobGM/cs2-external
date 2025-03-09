@@ -1,6 +1,6 @@
-﻿using CS2Cheat.Data.Entity;
+﻿using CS2External.Data.Entity;
 
-namespace CS2Cheat.Core.Game;
+namespace CS2External.Core.Game;
 
 public class GameData : ThreadedServiceBase
 {

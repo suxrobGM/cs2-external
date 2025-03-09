@@ -1,6 +1,6 @@
 using SharpDX;
 
-namespace CS2Cheat.Graphics;
+namespace CS2External.Graphics;
 
 public static class GraphicsMath
 {

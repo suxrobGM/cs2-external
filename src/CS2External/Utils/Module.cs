@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace CS2Cheat.Utils;
+namespace CS2External.Utils;
 
 public class Module(System.Diagnostics.Process process, ProcessModule processModule) : IDisposable
 {

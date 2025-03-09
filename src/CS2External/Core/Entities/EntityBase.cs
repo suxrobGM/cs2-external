@@ -1,9 +1,9 @@
-using CS2Cheat.Core.Data;
-using CS2Cheat.Core.Game;
-using CS2Cheat.Utils;
+using CS2External.Core.Data;
+using CS2External.Core.Game;
+using CS2External.Utils;
 using SharpDX;
 
-namespace CS2Cheat.Data.Entity;
+namespace CS2External.Data.Entity;
 
 public abstract class EntityBase
 {

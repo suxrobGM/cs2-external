@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Serilog;
 
-namespace CS2Cheat.Core;
+namespace CS2External.Core;
 
 public abstract class ThreadedServiceBase : IDisposable
 {
