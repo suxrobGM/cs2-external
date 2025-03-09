@@ -1,8 +1,8 @@
 ﻿using System.Windows.Threading;
+using CS2Cheat.Core;
 using CS2Cheat.Core.Data;
-using CS2Cheat.Data.Game;
+using CS2Cheat.Core.Game;
 using CS2Cheat.Features;
-using CS2Cheat.Utils;
 using SharpDX;
 using SharpDX.Direct3D9;
 using static System.Windows.Application;
@@ -15,11 +15,11 @@ namespace CS2Cheat.Graphics;
 public class Graphics : ThreadedServiceBase
 {
     private static readonly VertexElement[] VertexElements =
-    {
+    [
         new(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, 0),
         new(0, 16, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, 0),
         VertexElement.VertexDeclarationEnd
-    };
+    ];
 
 
     public Graphics(GameProcess gameProcess, GameData gameData, WindowOverlay windowOverlay)
@@ -49,15 +49,15 @@ public class Graphics : ThreadedServiceBase
         base.Dispose();
 
         FontAzonix64.Dispose();
-        FontAzonix64 = default;
+        FontAzonix64 = null;
         FontConsolas32.Dispose();
-        FontConsolas32 = default;
+        FontConsolas32 = null;
         Device.Dispose();
-        Device = default;
+        Device = null;
 
-        GameData = default;
-        GameProcess = default;
-        WindowOverlay = default;
+        GameData = null;
+        GameProcess = null;
+        WindowOverlay = null;
     }
 
     private void InitDevice()

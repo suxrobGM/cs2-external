@@ -1,7 +1,7 @@
 using CS2Cheat.Core;
 using CS2Cheat.Core.Data;
+using CS2Cheat.Core.Game;
 using CS2Cheat.Data.Entity;
-using CS2Cheat.Data.Game;
 using CS2Cheat.Graphics;
 using CS2Cheat.Utils;
 using Process.NET.Native.Types;

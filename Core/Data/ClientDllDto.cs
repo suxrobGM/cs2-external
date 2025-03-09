@@ -1,10 +1,13 @@
-using Newtonsoft.Json;
 
-namespace CS2Cheat.DTO.ClientDllDTO;
 
-public class ClientDllDTO
+using System.Text.Json.Serialization;
+
+namespace CS2Cheat.Core.Data;
+
+public class ClientDllDto
 {
-    [JsonProperty("client.dll")] public ClientDll clientdll { get; set; }
+    [JsonPropertyName("client.dll")] 
+    public ClientDll ClientDll { get; set; }
 }
 
 public class ClientDll

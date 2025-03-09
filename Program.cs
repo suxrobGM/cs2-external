@@ -1,19 +1,19 @@
-using CS2Cheat.Data.Game;
+using CS2Cheat.Core.Game;
 using CS2Cheat.Features;
 using CS2Cheat.Graphics;
 using CS2Cheat.Utils;
+using Serilog;
 using static CS2Cheat.Core.User32;
 using Application = System.Windows.Application;
 
 namespace CS2Cheat;
 
-public class Program :
-    Application,
-    IDisposable
+public class Program : Application, IDisposable
 {
     private Program()
     {
-        Offsets.UpdateOffsets();
+        InitLogger();
+        _ = Offsets.UpdateOffsets();
         Startup += (_, _) => InitializeComponent();
         Exit += (_, _) => Dispose();
     }
@@ -35,25 +35,26 @@ public class Program :
     public void Dispose()
     {
         GameProcess.Dispose();
-        GameProcess = default!;
+        GameProcess = null!;
 
         GameData.Dispose();
-        GameData = default!;
+        GameData = null!;
 
         WindowOverlay.Dispose();
-        WindowOverlay = default!;
+        WindowOverlay = null!;
 
         Graphics.Dispose();
-        Graphics = default!;
+        Graphics = null!;
 
         Trigger.Dispose();
-        Trigger = default!;
+        Trigger = null!;
 
         AimBot.Dispose();
-        AimBot = default!;
+        AimBot = null!;
 
         BombTimer.Dispose();
-        BombTimer = default!;
+        BombTimer = null!;
+        GC.SuppressFinalize(this);
     }
 
     public static void Main()
@@ -84,6 +85,13 @@ public class Program :
         BombTimer = new BombTimer(Graphics);
         BombTimer.Start();
 
-        SetWindowDisplayAffinity(WindowOverlay!.Window.Handle, 0x00000011); //obs bypass
+        SetWindowDisplayAffinity(WindowOverlay.Window.Handle, 0x00000011); //obs bypass
+    }
+
+    private static void InitLogger()
+    {
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateLogger();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Threading;
-using CS2Cheat.Data.Game;
+using CS2Cheat.Core;
+using CS2Cheat.Core.Game;
 using CS2Cheat.Utils;
 using GameOverlay.Windows;
 using SharpDX;
@@ -42,12 +43,7 @@ public class WindowOverlay : ThreadedServiceBase
     public override void Dispose()
     {
         base.Dispose();
-
         Window.Dispose();
-        Window = default;
-
-        FpsCounter = default;
-        GameProcess = default;
     }
 
     protected override void FrameAction()
@@ -95,6 +91,6 @@ public class WindowOverlay : ThreadedServiceBase
             new Vector2(0, 0)
         );
         //fps count
-        graphics.FontConsolas32.DrawText(default, $"{FpsCounter!.Fps} FPS", 5, 5, Color.White);
+        graphics.FontConsolas32.DrawText(null, $"{FpsCounter!.Fps} FPS", 5, 5, Color.White);
     }
 }

@@ -1,4 +1,6 @@
-using CS2Cheat.Data.Game;
+
+using CS2Cheat.Core;
+using CS2Cheat.Core.Game;
 using CS2Cheat.Utils;
 using Keys = Process.NET.Native.Types.Keys;
 
@@ -18,8 +20,8 @@ public class TriggerBot(GameProcess gameProcess, GameData gameData) : ThreadedSe
     {
         base.Dispose();
 
-        GameData = default;
-        GameProcess = default;
+        GameData = null;
+        GameProcess = null;
     }
 
     public static bool IsHotKeyDown()

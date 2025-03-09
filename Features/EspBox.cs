@@ -78,7 +78,7 @@ public static class EspBox
             .Right + 30;
         var weaponNamePosition = new Vector2((boundingBox.Item1.X + boundingBox.Item2.X - textWidth) / 2,
             boundingBox.Item2.Y + 5f);
-        graphics.FontConsolas32.DrawText(default, currentWeaponName ?? "NONE", (int)weaponNamePosition.X,
+        graphics.FontConsolas32.DrawText(null, currentWeaponName ?? "NONE", (int)weaponNamePosition.X,
             (int)weaponNamePosition.Y, Color.White);
     }
 
@@ -88,7 +88,7 @@ public static class EspBox
                         10f;
         var enemyNamePosition = new Vector2((boundingBox.Item1.X + boundingBox.Item2.X) / 2 - textWidth / 2,
             boundingBox.Item1.Y - 15f);
-        graphics.FontConsolas32.DrawText(default, enemyName ?? "UNKNOWN", (int)enemyNamePosition.X,
+        graphics.FontConsolas32.DrawText(null, enemyName ?? "UNKNOWN", (int)enemyNamePosition.X,
             (int)enemyNamePosition.Y, Color.White);
     }
 
@@ -97,21 +97,21 @@ public static class EspBox
         var flagsPosition = new Vector2(boundingBox.Item2.X + 5f, boundingBox.Item1.Y);
 
         if (entity.IsinScope == 1)
-            graphics.FontConsolas32.DrawText(default, "Scoped", (int)flagsPosition.X, (int)flagsPosition.Y,
+            graphics.FontConsolas32.DrawText(null, "Scoped", (int)flagsPosition.X, (int)flagsPosition.Y,
                 Color.White);
 
         if (entity.FlashAlpha > 7)
-            graphics.FontConsolas32.DrawText(default, "Flashed", (int)flagsPosition.X, (int)flagsPosition.Y + 15,
+            graphics.FontConsolas32.DrawText(null, "Flashed", (int)flagsPosition.X, (int)flagsPosition.Y + 15,
                 Color.White);
 
         switch (entity.IsinScope)
         {
             case 256:
-                graphics.FontConsolas32.DrawText(default, "Shifting", (int)flagsPosition.X, (int)flagsPosition.Y + 30,
+                graphics.FontConsolas32.DrawText(null, "Shifting", (int)flagsPosition.X, (int)flagsPosition.Y + 30,
                     Color.White);
                 break;
             case 257:
-                graphics.FontConsolas32.DrawText(default, "Shifting in scope", (int)flagsPosition.X,
+                graphics.FontConsolas32.DrawText(null, "Shifting in scope", (int)flagsPosition.X,
                     (int)flagsPosition.Y + 45, Color.White);
                 break;
         }
@@ -124,7 +124,7 @@ public static class EspBox
         var positionY = (int)(topLeft.Y + (bottomRight.Y - topLeft.Y) / 2 -
                               graphics.FontConsolas32.MeasureText(null, healthText, FontDrawFlags.Center).Bottom / 2);
 
-        graphics.FontConsolas32.DrawText(default, healthText, positionX, positionY, Color.White);
+        graphics.FontConsolas32.DrawText(null, healthText, positionX, positionY, Color.White);
     }
 
     private static (Vector2, Vector2) GetEntityBoundingBox(Graphics.Graphics graphics, Entity entity)

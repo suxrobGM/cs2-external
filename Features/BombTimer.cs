@@ -1,3 +1,4 @@
+using CS2Cheat.Core;
 using CS2Cheat.Utils;
 using Color = SharpDX.Color;
 
@@ -55,7 +56,7 @@ internal class BombTimer(Graphics.Graphics graphics) : ThreadedServiceBase
         var timerText = _isBombPlanted ? $"Time left: {_timeLeft:0.00} seconds" : " ";
         var defuse = _isBombPlanted ? $"Defuse time: {_defuseLeft:0.00} seconds" : " ";
 
-        graphics.FontAzonix64.DrawText(default,
+        graphics.FontAzonix64.DrawText(null,
             $"{_bombPlanted}{Environment.NewLine}{timerText}{Environment.NewLine}{defuse}", 0, 500, Color.WhiteSmoke);
     }
 }

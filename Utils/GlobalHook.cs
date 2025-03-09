@@ -16,7 +16,7 @@ public class GlobalHook :
 
     private HookType HookType { get; }
 
-    private HookProc HookProc { get; set; }
+    private HookProc? HookProc { get; set; }
 
     public IntPtr HookHandle { get; private set; }
 
@@ -35,8 +35,8 @@ public class GlobalHook :
     private void ReleaseUnmanagedResources()
     {
         UnHook(HookHandle);
-        HookHandle = default;
-        HookProc = default;
+        HookHandle = 0;
+        HookProc = null;
     }
 
 

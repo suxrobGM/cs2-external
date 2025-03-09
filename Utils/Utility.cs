@@ -90,7 +90,7 @@ public static class Utility
     {
         var processModule = process.GetProcessModule(moduleName);
         return processModule is null || processModule.BaseAddress == IntPtr.Zero
-            ? default
+            ? null
             : new Module(process, processModule);
     }
 

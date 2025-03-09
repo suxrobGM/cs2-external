@@ -4,12 +4,10 @@ namespace CS2Cheat.Graphics;
 
 public readonly struct Plane3D
 {
-    public readonly Vector3 Normal;
-
-
     private readonly float _distance;
-
-
+    
+    public readonly Vector3 Normal;
+    
     private Plane3D(Vector3 normal, float distance)
     {
         Normal = normal.GetNormalized();
