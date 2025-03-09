@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CS2External")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.8.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.8+7b971ebabafb87ca9e11024e7d5960d087ffe791")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.8+469d5f56de15fe2ec702a621e155b780ac663392")]
 [assembly: System.Reflection.AssemblyProductAttribute("CS2External")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CS2External")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.8.0.0")]
