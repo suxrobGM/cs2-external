@@ -1,7 +1,19 @@
-/obj
-/.vs/CS2Cheat/FileContentIndex
-/.vs/CS2Cheat/v17
-/bin/Debug/net8.0-windows
-/.vs/CS2Cheat/DesignTimeBuild
-
 /.idea
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
