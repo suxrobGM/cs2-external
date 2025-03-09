@@ -1,7 +1,10 @@
+using System.IO;
 using CS2External.Core.Game;
+using CS2External.Core.Options;
 using CS2External.Features;
 using CS2External.Graphics;
 using CS2External.Utils;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using static CS2External.Core.User32;
 using Application = System.Windows.Application;
@@ -10,6 +13,16 @@ namespace CS2External;
 
 public class Program : Application, IDisposable
 {
+    private GameProcess _gameProcess = null!;
+    private GameData _gameData = null!;
+    private WindowOverlay _windowOverlay = null!;
+    private Graphics.Graphics _graphics = null!;
+    private TriggerBot _triggerBot = null!;
+    private AimBot _aimBot = null!;
+    private BombTimer _bombTimer = null!;
+    
+    public static IConfiguration Configuration { get; } = InitConfiguration();
+    
     private Program()
     {
         InitLogger();
@@ -17,75 +30,86 @@ public class Program : Application, IDisposable
         Startup += (_, _) => InitializeComponent();
         Exit += (_, _) => Dispose();
     }
-
-    private GameProcess GameProcess { get; set; } = null!;
-
-    private GameData GameData { get; set; } = null!;
-
-    private WindowOverlay WindowOverlay { get; set; } = null!;
-
-    private Graphics.Graphics Graphics { get; set; } = null!;
-
-    private TriggerBot Trigger { get; set; } = null!;
-
-    private AimBot AimBot { get; set; } = null!;
-
-    private BombTimer BombTimer { get; set; } = null!;
-
-    public void Dispose()
-    {
-        GameProcess.Dispose();
-        GameProcess = null!;
-
-        GameData.Dispose();
-        GameData = null!;
-
-        WindowOverlay.Dispose();
-        WindowOverlay = null!;
-
-        Graphics.Dispose();
-        Graphics = null!;
-
-        Trigger.Dispose();
-        Trigger = null!;
-
-        AimBot.Dispose();
-        AimBot = null!;
-
-        BombTimer.Dispose();
-        BombTimer = null!;
-        GC.SuppressFinalize(this);
-    }
-
+    
     public static void Main()
     {
         new Program().Run();
     }
 
+    public void Dispose()
+    {
+        _gameProcess.Dispose();
+        _gameProcess = null!;
+
+        _gameData.Dispose();
+        _gameData = null!;
+
+        _windowOverlay.Dispose();
+        _windowOverlay = null!;
+
+        _graphics.Dispose();
+        _graphics = null!;
+
+        _triggerBot.Dispose();
+        _triggerBot = null!;
+
+        _aimBot.Dispose();
+        _aimBot = null!;
+
+        _bombTimer.Dispose();
+        _bombTimer = null!;
+        GC.SuppressFinalize(this);
+    }
+
     private void InitializeComponent()
     {
-        GameProcess = new GameProcess();
-        GameProcess.Start();
+        var features = Configuration.GetSection("Features").Get<FeaturesOptions>();
 
-        GameData = new GameData(GameProcess);
-        GameData.Start();
+        if (features is null)
+        {
+            Log.Warning("Failed to load features options from the appsettings.json file. Initializing with default settings.");
+            features = FeaturesOptions.Default();
+        }
+        
+        _gameProcess = new GameProcess();
+        _gameProcess.Start();
 
-        WindowOverlay = new WindowOverlay(GameProcess);
-        WindowOverlay.Start();
+        _gameData = new GameData(_gameProcess);
+        _gameData.Start();
 
-        Graphics = new Graphics.Graphics(GameProcess, GameData, WindowOverlay);
-        Graphics.Start();
+        _windowOverlay = new WindowOverlay(_gameProcess);
+        _windowOverlay.Start();
 
-        Trigger = new TriggerBot(GameProcess, GameData);
-        Trigger.Start();
+        _graphics = new Graphics.Graphics(_gameProcess, _gameData, _windowOverlay);
+        _graphics.Start();
 
-        AimBot = new AimBot(GameProcess, GameData);
-        AimBot.Start();
+        _triggerBot = new TriggerBot(_gameProcess, _gameData);
+        if (features.TriggerBot)
+        {
+            _triggerBot.Start();
+        }
 
-        BombTimer = new BombTimer(Graphics);
-        BombTimer.Start();
+        _aimBot = new AimBot(_gameProcess, _gameData);
+        if (features.AimBot)
+        {
+            _aimBot.Start();
+        }
 
-        SetWindowDisplayAffinity(WindowOverlay.Window.Handle, 0x00000011); //obs bypass
+        _bombTimer = new BombTimer(_graphics);
+        if (features.BombTimer)
+        {
+            _bombTimer.Start();
+        }
+
+        SetWindowDisplayAffinity(_windowOverlay.Window.Handle, 0x00000011); //obs bypass
+    }
+
+    private static IConfiguration InitConfiguration()
+    {
+        return new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
     }
 
     private static void InitLogger()
