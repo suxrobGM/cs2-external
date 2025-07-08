@@ -62,7 +62,6 @@ public static class SkeletonEsp
     private static void DrawSkeleton(Graphics.Graphics graphics, Entity entity, Color color)
     {
         var bonePositions = entity.BonePos;
-        if (bonePositions == null) return;
 
         foreach (var (startBone, endBone) in BoneConnections)
         {

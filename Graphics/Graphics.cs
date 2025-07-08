@@ -15,13 +15,13 @@ namespace CS2Cheat.Graphics;
 public class Graphics : ThreadedServiceBase
 {
     private static readonly VertexElement[] VertexElements =
-    {
+    [
         new(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, 0),
         new(0, 16, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, 0),
         VertexElement.VertexDeclarationEnd
-    };
+    ];
 
-    private readonly object _deviceLock = new();
+    private readonly Lock _deviceLock = new();
 
     private readonly List<Vertex> _vertices = [];
 
@@ -214,11 +214,16 @@ public class Graphics : ThreadedServiceBase
         if (verts.Length < 2 || verts.Length % 2 != 0) return;
 
         foreach (var vertex in verts)
-            _vertices.Add(new Vertex
+        {
+            lock (_deviceLock)
             {
-                Color = color,
-                Position = new Vector4(vertex.X, vertex.Y, 0.5f, 1.0f)
-            });
+                _vertices.Add(new Vertex
+                {
+                    Color = color,
+                    Position = new Vector4(vertex.X, vertex.Y, 0.5f, 1.0f)
+                });
+            }
+        }
     }
 
     public void DrawLineWorld(Color color, params Vector3[] verticesWorld)
@@ -245,6 +250,9 @@ public class Graphics : ThreadedServiceBase
             topLeft
         };
 
-        for (var i = 0; i < vertices.Length - 1; i++) DrawLine(color, vertices[i], vertices[i + 1]);
+        for (var i = 0; i < vertices.Length - 1; i++)
+        {
+            DrawLine(color, vertices[i], vertices[i + 1]);
+        }
     }
 }

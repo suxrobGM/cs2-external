@@ -38,12 +38,16 @@ public class GameData : ThreadedServiceBase
 
     protected override void FrameAction()
     {
-        if (GameProcess == null || !GameProcess.IsValid) return;
-        if (Player != null) Player.Update(GameProcess);
+        if (GameProcess is not { IsValid: true }) return;
+        Player?.Update(GameProcess);
 
         if (Entities != null)
+        {
             foreach (var entity in Entities)
+            {
                 entity.Update(GameProcess);
+            }
+        }
     }
 
     #endregion

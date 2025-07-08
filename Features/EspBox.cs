@@ -134,7 +134,7 @@ public static class EspBox
         var maxPos = new Vector2(float.MinValue, float.MinValue);
 
         var matrix = graphics.GameData.Player?.MatrixViewProjectionViewport;
-        if (matrix == null || entity.BonePos == null || entity.BonePos.Count == 0) return null;
+        if (matrix == null || entity.BonePos.Count == 0) return null;
 
         var anyValid = false;
         foreach (var bone in entity.BonePos.Values)

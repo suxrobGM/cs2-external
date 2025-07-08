@@ -4,8 +4,7 @@ using User32 = CS2Cheat.Core.User32;
 
 namespace CS2Cheat.Utils;
 
-public class GlobalHook :
-    IDisposable
+public class GlobalHook : IDisposable
 {
     public GlobalHook(HookType hookType, HookProc hookProc)
     {

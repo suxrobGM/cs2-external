@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.Json;
+using Serilog;
 using Keys = Process.NET.Native.Types.Keys;
 
 namespace CS2Cheat.Utils;
@@ -7,6 +8,12 @@ namespace CS2Cheat.Utils;
 public class ConfigManager
 {
     private const string ConfigFile = "config.json";
+    private static JsonSerializerOptions _serializeOptions = new()
+    {
+        WriteIndented = true,
+        PropertyNameCaseInsensitive = true
+    };
+    
     public bool AimBot { get; set; }
     public bool BombTimer { get; set; }
     public bool EspAimCrosshair { get; set; }
@@ -30,10 +37,7 @@ public class ConfigManager
             }
 
             var json = File.ReadAllText(ConfigFile);
-            var options = JsonSerializer.Deserialize<ConfigManager>(json, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
+            var options = JsonSerializer.Deserialize<ConfigManager>(json, _serializeOptions);
             return options ?? Default();
         }
         catch (JsonException)
@@ -46,15 +50,13 @@ public class ConfigManager
     {
         try
         {
-            var json = JsonSerializer.Serialize(options, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
+            var json = JsonSerializer.Serialize(options, _serializeOptions);
             File.WriteAllText(ConfigFile, json);
+            Log.Information("Config options saved successfully to {ConfigFile}.", ConfigFile);
         }
         catch (JsonException)
         {
-            // Handle serialization errors
+            Log.Error("Failed to serialize config options.");
         }
     }
 

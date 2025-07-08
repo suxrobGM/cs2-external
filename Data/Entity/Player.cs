@@ -68,10 +68,8 @@ public class Player : EntityBase
 
         try
         {
-            var totalHits = gameProcess.Process.Read<int>
-            (
-                gameProcess.Process.Read<IntPtr>(AddressBase + 0x1518) + 0x40
-            );
+            var totalHits =
+                gameProcess.Process.Read<int>(gameProcess.Process.Read<IntPtr>(AddressBase + 0x1518) + 0x40);
 
             if (totalHits != PreviousTotalHits && totalHits > 0)
             {
@@ -85,7 +83,6 @@ public class Player : EntityBase
         {
             // ignored
         }
-
 
         return true;
     }

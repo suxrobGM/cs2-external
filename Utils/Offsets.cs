@@ -3,6 +3,7 @@ using System.Net.Http;
 using CS2Cheat.DTO.ClientDllDTO;
 using CS2Cheat.Utils.DTO;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace CS2Cheat.Utils;
 
@@ -72,10 +73,13 @@ public abstract class Offsets
     {
         try
         {
+            Log.Information("Updating offsets...");
             var sourceDataDw = JsonConvert.DeserializeObject<OffsetsDTO>(
                 await FetchJson("https://raw.githubusercontent.com/a2x/cs2-dumper/main/output/offsets.json"));
             var sourceDataClient = JsonConvert.DeserializeObject<ClientDllDTO>(
                 await FetchJson("https://raw.githubusercontent.com/a2x/cs2-dumper/main/output/client_dll.json"));
+            
+            Log.Information("Offsets updated successfully.");
 
             dynamic destData = new ExpandoObject();
 
@@ -133,8 +137,7 @@ public abstract class Offsets
         }
         catch (Exception ex)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            Log.Error(ex, "An error occurred while updating offsets.");
             throw;
         }
     }

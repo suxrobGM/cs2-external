@@ -26,7 +26,7 @@ public class AimBot : ThreadedServiceBase
 
     private static readonly string[] AimBonePriority = { "head", "neck", "chest", "pelvis" };
 
-    private readonly object _stateLock = new();
+    private readonly Lock _stateLock = new();
 
     private readonly Keys AimBotHotKey;
     private double _aiAggressiveness = 2;
@@ -240,7 +240,8 @@ public class AimBot : ThreadedServiceBase
         var aimPosition = Vector3.Zero;
         var targetVel = Vector3.Zero;
 
-        if (GameData != null && GameData.Entities != null)
+        if (GameData is { Entities: not null })
+        {
             foreach (var entity in GameData.Entities.Where(entity =>
                          GameData.Player != null &&
                          entity.IsAlive() && entity.AddressBase != GameData.Player.AddressBase &&
@@ -294,6 +295,7 @@ public class AimBot : ThreadedServiceBase
                     targetFound = true;
                 }
             }
+        }
 
         CurrentSmoothing = AimBotSmoothing;
         if (targetFound)
@@ -314,7 +316,7 @@ public class AimBot : ThreadedServiceBase
         aimAngles = Vector2.Zero;
         angleSize = 0f;
 
-        if (GameData == null || GameData.Player == null) return;
+        if (GameData?.Player == null) return;
 
         var aimDirection = GameData.Player.AimDirection;
         var aimDirectionDesired = (pointWorld - GameData.Player.EyePosition).GetNormalized();
@@ -341,7 +343,7 @@ public class AimBot : ThreadedServiceBase
 
     private static bool TryMouseMoveOld(Point aimPixels)
     {
-        if (aimPixels.X == 0 && aimPixels.Y == 0) return false;
+        if (aimPixels is { X: 0, Y: 0 }) return false;
         if (Math.Abs(aimPixels.X) > 100 || Math.Abs(aimPixels.Y) > 100) return false;
         Utility.MouseMove(aimPixels.X, aimPixels.Y);
         return true;
@@ -349,7 +351,7 @@ public class AimBot : ThreadedServiceBase
 
     private static bool TryMouseMoveNew(Point aimPixels)
     {
-        if (aimPixels.X == 0 && aimPixels.Y == 0) return false;
+        if (aimPixels is { X: 0, Y: 0 }) return false;
 
         if (Math.Abs(aimPixels.X) > 100 || Math.Abs(aimPixels.Y) > 100) return false;
         Utility.WindMouseMove(0, 0, aimPixels.X, aimPixels.Y, 9.0, 3.0, 15.0, 12.0);
@@ -398,7 +400,7 @@ public class AimBot : ThreadedServiceBase
 
         Thread.Sleep(100);
 
-        if (GameData == null || GameData.Player == null) return 0.0;
+        if (GameData?.Player == null) return 0.0;
 
         var eyeDirectionEnd = GameData.Player.EyeDirection;
         eyeDirectionEnd.Z = 0;

@@ -89,7 +89,7 @@ public static class Utility
     public static Module? GetModule(this System.Diagnostics.Process process, string moduleName)
     {
         var processModule = process.GetProcessModule(moduleName);
-        return processModule is null || processModule.BaseAddress == IntPtr.Zero
+        return processModule.BaseAddress == IntPtr.Zero
             ? null
             : new Module(process, processModule);
     }
@@ -98,7 +98,7 @@ public static class Utility
     private static ProcessModule GetProcessModule(this System.Diagnostics.Process process,
         string moduleName)
     {
-        var module = process?.Modules.OfType<ProcessModule>()
+        var module = process.Modules.OfType<ProcessModule>()
             .FirstOrDefault(a => string.Equals(a.ModuleName.ToLower(), moduleName.ToLower()));
         if (module == null) throw new InvalidOperationException($"Module '{moduleName}' not found in process.");
         return module;
@@ -234,7 +234,7 @@ public static class Utility
             }
         };
 
-        User32.SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
+        User32.SendInput((uint)inputs.Length, inputs, Marshal.SizeOf<Input>());
     }
 
 
@@ -254,7 +254,7 @@ public static class Utility
             }
         };
 
-        User32.SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
+        User32.SendInput((uint)inputs.Length, inputs, Marshal.SizeOf<Input>());
     }
 
     public static void PressSpace()
@@ -293,7 +293,7 @@ public static class Utility
             }
         };
 
-        User32.SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
+        User32.SendInput((uint)inputs.Length, inputs, Marshal.SizeOf<Input>());
     }
 
 

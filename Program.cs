@@ -1,19 +1,20 @@
+using System.Runtime.InteropServices;
 using CS2Cheat.Data.Game;
 using CS2Cheat.Features;
 using CS2Cheat.Graphics;
 using CS2Cheat.Utils;
+using Serilog;
+using Serilog.Core;
 using static CS2Cheat.Core.User32;
 using Application = System.Windows.Application;
 
 namespace CS2Cheat;
 
-public class Program :
-    Application,
-    IDisposable
+public class Program : Application, IDisposable
 {
     private Program()
     {
-        Offsets.UpdateOffsets();
+        _ = Offsets.UpdateOffsets();
         Startup += (_, _) => InitializeComponent();
         Exit += (_, _) => Dispose();
     }
@@ -64,6 +65,8 @@ public class Program :
     private void InitializeComponent()
     {
         var features = ConfigManager.Load();
+        Log.Information("Starting CS2Cheat with features: {Features}", features);
+        
         GameProcess = new GameProcess();
         GameProcess.Start();
 
@@ -79,13 +82,21 @@ public class Program :
         Trigger = new TriggerBot(GameProcess, GameData);
         if (features.TriggerBot) Trigger.Start();
 
-
         AimBot = new AimBot(GameProcess, GameData);
         if (features.AimBot) AimBot.Start();
 
         BombTimer = new BombTimer(Graphics);
         if (features.BombTimer) BombTimer.Start();
 
-        SetWindowDisplayAffinity(WindowOverlay!.Window.Handle, 0x00000011); //obs bypass
+        var result = SetWindowDisplayAffinity(WindowOverlay.Window.Handle, 0x00000011); //obs bypass
+        
+        if (result == 0)
+        {
+            Log.Error("Failed to set window display affinity. Error code: {ErrorCode}", Marshal.GetLastWin32Error());
+        }
+        else
+        {
+            Log.Information("Window display affinity set successfully.");
+        }
     }
 }

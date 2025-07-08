@@ -1,5 +1,6 @@
 using CS2Cheat.Data.Game;
 using CS2Cheat.Utils;
+using Serilog;
 using Keys = Process.NET.Native.Types.Keys;
 
 namespace CS2Cheat.Features;
@@ -32,20 +33,27 @@ public sealed class TriggerBot : ThreadedServiceBase
 
     protected override async void FrameAction()
     {
-        if (!ShouldExecuteTriggerBot())
-            return;
+        try
+        {
+            if (!ShouldExecuteTriggerBot())
+                return;
 
-        var targetEntity = GetTargetEntity();
-        if (targetEntity == IntPtr.Zero)
-            return;
+            var targetEntity = GetTargetEntity();
+            if (targetEntity == IntPtr.Zero)
+                return;
 
-        if (_gameProcess.Process == null) return;
+            if (_gameProcess.Process == null) return;
 
-        var entityTeam = _gameProcess.Process.Read<int>(targetEntity + Offsets.m_iTeamNum);
-        if (!ShouldTriggerOnEntity(entityTeam))
-            return;
+            var entityTeam = _gameProcess.Process.Read<int>(targetEntity + Offsets.m_iTeamNum);
+            if (!ShouldTriggerOnEntity(entityTeam))
+                return;
 
-        await ExecuteTrigger();
+            await ExecuteTrigger();
+        }
+        catch (Exception e)
+        {
+            Log.Error("TriggerBot error: {Error}", e);
+        }
     }
 
     private bool ShouldExecuteTriggerBot()

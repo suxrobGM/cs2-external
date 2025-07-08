@@ -94,7 +94,8 @@ public class WindowOverlay : ThreadedServiceBase
             new Vector2(0, gameProcess.WindowRectangleClient.Height - 1),
             new Vector2(0, 0)
         );
+        
         //fps count
-        graphics.FontConsolas32.DrawText(default, $"{FpsCounter!.Fps} FPS", 5, 5, Color.White);
+        graphics.FontConsolas32?.DrawText(null, $"{FpsCounter!.Fps} FPS", 5, 5, Color.White);
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace CS2Cheat.Utils;
 
-public abstract class ThreadedServiceBase :
-    IDisposable
+public abstract class ThreadedServiceBase : IDisposable
 {
     #region
 
