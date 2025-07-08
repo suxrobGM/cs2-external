@@ -4,7 +4,6 @@ using CS2Cheat.Features;
 using CS2Cheat.Graphics;
 using CS2Cheat.Utils;
 using Serilog;
-using Serilog.Core;
 using static CS2Cheat.Core.User32;
 using Application = System.Windows.Application;
 
@@ -14,6 +13,7 @@ public class Program : Application, IDisposable
 {
     private Program()
     {
+        InitializeLogger();
         _ = Offsets.UpdateOffsets();
         Startup += (_, _) => InitializeComponent();
         Exit += (_, _) => Dispose();
@@ -96,7 +96,15 @@ public class Program : Application, IDisposable
         }
         else
         {
-            Log.Information("Window display affinity set successfully.");
+            Log.Information("Window display affinity set successfully");
         }
+    }
+
+    private static void InitializeLogger()
+    {
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Console()
+            .CreateLogger();
     }
 }

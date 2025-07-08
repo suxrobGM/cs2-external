@@ -5,3 +5,4 @@
 /.vs/CS2Cheat/DesignTimeBuild
 /.idea
 /bin
+*.sln.DotSettings.user

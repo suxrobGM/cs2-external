@@ -24,7 +24,6 @@ public class ConfigManager
     public Keys TriggerBotKey { get; set; }
     public bool TeamCheck { get; set; }
 
-
     public static ConfigManager Load()
     {
         try
@@ -64,15 +63,22 @@ public class ConfigManager
     {
         return new ConfigManager
         {
-            AimBot = true,
+            AimBot = false,
             BombTimer = true,
-            EspAimCrosshair = false,
+            EspAimCrosshair = true,
             EspBox = true,
-            SkeletonEsp = false,
+            SkeletonEsp = true,
             TriggerBot = true,
             AimBotKey = Keys.LButton, // https://github.com/lolp1/Process.NET/blob/ce9ac9cceb2afb30c9288495615c6f3aa34bc1f8/src/Process.NET/Native/Types/NativeEnums.cs#L235
             TriggerBotKey = Keys.LMenu,
             TeamCheck = true
         };
+    }
+
+    public override string ToString()
+    {
+        return $"AimBot: {AimBot}, BombTimer: {BombTimer}, EspAimCrosshair: {EspAimCrosshair}, " +
+               $"EspBox: {EspBox}, SkeletonEsp: {SkeletonEsp}, TriggerBot: {TriggerBot}, " +
+               $"AimBotKey: {AimBotKey}, TriggerBotKey: {TriggerBotKey}, TeamCheck: {TeamCheck}";
     }
 }

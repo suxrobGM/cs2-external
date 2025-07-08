@@ -73,13 +73,13 @@ public abstract class Offsets
     {
         try
         {
-            Log.Information("Updating offsets...");
+            Log.Information("Downloading offsets from https://raw.githubusercontent.com/a2x/cs2-dumper/main/output/offsets.json");
             var sourceDataDw = JsonConvert.DeserializeObject<OffsetsDTO>(
                 await FetchJson("https://raw.githubusercontent.com/a2x/cs2-dumper/main/output/offsets.json"));
             var sourceDataClient = JsonConvert.DeserializeObject<ClientDllDTO>(
                 await FetchJson("https://raw.githubusercontent.com/a2x/cs2-dumper/main/output/client_dll.json"));
             
-            Log.Information("Offsets updated successfully.");
+            Log.Information("Offsets updated successfully");
 
             dynamic destData = new ExpandoObject();
 
